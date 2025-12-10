@@ -94,7 +94,7 @@ GRADER solves the challenges of modern education by:
 
 Prepared by:
 
-Zasmin (Zasmin-16)
+Zasmin Prajapati (Zasmin-16)
 
 
 
