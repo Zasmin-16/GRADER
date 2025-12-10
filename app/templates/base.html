@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>GRADER</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+  <nav class="container" role="navigation">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="position:relative;width:40px;height:40px">
+        <svg viewBox="0 0 24 24" width="40" height="40">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#00d0ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+          </defs>
+          <rect x="1" y="1" width="22" height="22" rx="6" fill="url(#g1)"></rect>
+        </svg>
+      </div>
+      <a href="{{ url_for('main.index') }}" class="text-anim" style="font-weight:700;font-size:1.25rem">GRADER</a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'student' %}
+          <a href="{{ url_for('student.dashboard') }}" class="text-muted">Student</a>
+        {% else %}
+          <a href="{{ url_for('professor.dashboard') }}" class="text-muted">Professor</a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="text-muted">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-magnetic">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top:18px; padding-bottom:40px;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-bottom:18px">
+          {% for cat,msg in messages %}
+            <div class="card" style="border-left:4px solid {% if cat=='success' %}#34d399{% elif cat=='danger' %}#fb7185{% else %}#60a5fa{% endif %}; margin-bottom:8px">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- decorative blobs (parallax) -->
+  <div class="blob" style="left:-120px; top:40px;"></div>
+  <div class="blob" style="right:-160px; bottom:-80px; background: radial-gradient(circle at 70% 30%, rgba(140,58,255,0.14), rgba(0,208,255,0.06));"></div>
+</body>
+</html>

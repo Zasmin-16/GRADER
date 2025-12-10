@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto card animate-fade-up">
+
+  <h2 class="text-2xl font-bold">{{ assignment.title }}</h2>
+  <p class="text-sm text-slate-400 mt-1">Student: {{ submission.student_email }}</p>
+
+  <div class="mt-4 flex justify-between">
+    <div>
+      <p class="text-sm">Score</p>
+      <p class="text-2xl font-bold">{{ submission.score }}/100</p>
+    </div>
+
+    <div>
+      <p class="text-sm">Plagiarism</p>
+      <p class="text-lg">{{ submission.plagiarism_percent }}%</p>
+
+      <div class="progress-wrap mt-2">
+        <div class="progress-bar progress-green"
+             style="width: {{ submission.plagiarism_percent }}%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <h4 class="font-semibold">Feedback</h4>
+    <p class="text-sm text-slate-300 mt-2">{{ submission.feedback }}</p>
+  </div>
+
+  <div class="flex gap-3 mt-6">
+    <a href="{{ submission.file_url }}" class="btn bg-gradient-brand text-black">Open File</a>
+    <a href="{{ url_for('student.download_my_report', assignment_id=assignment.id, submission_id=submission_id) }}"
+       class="btn bg-slate-700">Download PDF</a>
+  </div>
+</div>
+
+{% endblock %}

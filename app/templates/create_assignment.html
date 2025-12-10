@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:640px;margin:12px auto" class="card pop-in">
+  <h2 class="text-anim" style="font-size:20px;margin-bottom:12px">Create Assignment</h2>
+
+  <form method="POST" class="reveal">
+    <label class="text-muted">Title</label>
+    <input name="title" class="input-box" required>
+    <label class="text-muted" style="margin-top:8px">Description</label>
+    <textarea name="description" class="input-box" rows="4"></textarea>
+    <label class="text-muted" style="margin-top:8px">Due date</label>
+    <input type="date" name="due_date" class="input-box">
+
+    <div style="margin-top:12px">
+      <button class="btn btn-primary">Create</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="font-size:22px;margin-bottom:14px">Student Dashboard</h2>
+
+<div class="grid cols-2" style="gap:20px">
+  <div class="card reveal">
+    <h3 style="margin-bottom:10px">Assignments</h3>
+    <div class="reveal">
+      {% for aid,a in assignments.items() %}
+      <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:600">{{ a.title }}</div>
+          <div class="text-muted" style="font-size:.9rem">{{ a.description }}</div>
+        </div>
+        <a href="{{ url_for('student.submit_assignment', assignment_id=aid) }}" class="btn btn-primary">Submit</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <h3 style="margin-bottom:10px">My Submissions</h3>
+    <div class="reveal">
+      {% for s in my_submissions %}
+      <div class="card" style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:600">{{ s.assignment.title }}</div>
+            <div class="text-muted" style="font-size:.9rem">{{ s.feedback|truncate(120) }}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:700">{{ s.score or '—' }}/100</div>
+            <a href="{{ url_for('student.view_result', assignment_id=s.assignment.id, submission_id=s.submission_id) }}" class="text-muted">View</a>
+          </div>
+        </div>
+        <div style="margin-top:10px" class="progress-wrap">
+          <div class="progress-bar" style="width: {{ s.plagiarism_percent }}%"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

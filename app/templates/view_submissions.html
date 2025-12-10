@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="font-size:20px;margin-bottom:10px">Submissions — {{ assignment.title }}</h2>
+
+<div class="reveal">
+  {% for sid,s in submissions.items() %}
+  <div class="card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div>
+      <div style="font-weight:700">{{ s.student_email }}</div>
+      <div class="text-muted" style="font-size:.9rem">Score: {{ s.score }} — Plagiarism: {{ s.plagiarism_percent }}%</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <a href="{{ s.file_url }}" class="btn btn-outline">Open</a>
+      <a href="{{ url_for('professor.download_pdf_report', assignment_id=assignment.id, submission_id=sid) }}" class="btn btn-primary">PDF</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

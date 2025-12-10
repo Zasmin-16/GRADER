@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:480px;margin:12px auto" class="card pop-in">
+  <h2 style="font-size:20px;margin-bottom:12px" class="text-anim">Create account</h2>
+  <form method="POST" class="reveal" data-fake-progress>
+    <label class="text-muted">Full name</label>
+    <input name="full_name" class="input-box" required>
+    <label class="text-muted" style="margin-top:8px">Email</label>
+    <input name="email" type="email" class="input-box" required>
+    <label class="text-muted" style="margin-top:8px">Password</label>
+    <input name="password" type="password" class="input-box" required>
+    <label class="text-muted" style="margin-top:8px">Role</label>
+    <select name="role" class="input-box">
+      <option value="student">Student</option>
+      <option value="professor">Professor</option>
+    </select>
+    <div style="margin-top:12px">
+      <button class="btn btn-primary btn-magnetic w-full" type="submit">Register</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
